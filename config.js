@@ -3,6 +3,10 @@ var cfg = {};
 // HTTP Port to run our web application
 cfg.port = process.env.PORT || 3000;
 
+// A random string that will help generate secure one-time passwords and
+// HTTP sessions
+cfg.secret = process.env.APP_SECRET || 'keyboard cat';
+
 // Your Twilio account SID and auth token, both found at:
 // https://www.twilio.com/user/account
 // 
