@@ -1,0 +1,32 @@
+{
+  "name": "SMS Notifications",
+  "description": "An example application demonstrating SMS notifications for mobile marketing",
+  "keywords": [
+    "twilio",
+    "node.js",
+    "mongodb",
+    "mongoose",
+    "express",
+  ],
+  "env": {
+    "TWILIO_ACCOUNT_SID": {
+      "description": "API username - find your account SID at https://www.twilio.com/user/account/voice-messaging",
+      "required": true
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "description": "API password - find your auth token at https://www.twilio.com/user/account/voice-messaging",
+      "required": true
+    },
+    "TWILIO_NUMBER": {
+      "description": "A number in your Twilio account to use with this application in E.164 format (e.g. +16518675309) - view your numbers at https://www.twilio.com/user/account/phone-numbers/incoming",
+      "required": true
+    }
+  },
+  "website": "https://github.com/TwilioDevEd/sms-notifications-node",
+  "repository": "https://github.com/TwilioDevEd/sms-notifications-node",
+  "logo": "https://s3.amazonaws.com/howtodocs/twilio-logo.png",
+  "success_url": "/",
+  "addons": [
+    "mongolab"
+  ]
+}
