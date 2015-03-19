@@ -23,14 +23,46 @@ exports.webhook = function(request, response) {
                 if (err || !newSub) 
                     return respond('We couldn\'t sign you up - try again.');
 
-                // Otherwise, we're all signed up!
-                respond('Thanks! You are signed up for updates.');
+                // We're signed up but not subscribed - prompt to subscribe
+                respond('Thanks for contacting us! Text "subscribe" to ' +
+                    + 'receive updates via text message.');
             });
         } else {
-            // for now, just confirm that they're signed up
-            return respond('you are all signed up!');
+            // For an existing user, process any input message they sent and
+            // send back an appropriate message
+            processMessage(sub);
         }
     });
+
+    // Process any message the user sent to us
+    function processMessage(subscriber) {
+        // get the text message command sent by the user
+        var msg = request.body.Body || '';
+        msg = msg.toLowerCase().trim();
+
+        // Conditional logic to do different things based on the command from
+        // the user
+        if (msg === 'subscribe') {
+            // If the user has elected to subscribe for messages, flip the bit
+            // and indicate that they have done so.
+            subscriber.subscribed = true;
+            subscriber.save(function(err) {
+                if (err)
+                    return respond('We could not subscribe you - please try '
+                        + 'again.');
+
+                // Otherwise, we're subscribed
+                respond('You are now subscribed for updates.');
+            });
+        } else {
+            // If we don't recognize the command, text back with the list of
+            // available commands
+            var responseMessage = 'Sorry, we didn\'t understand that. '
+                + 'available commands are: subscribe';
+
+            respond(responseMessage);
+        }
+    }
 
     // Set Content-Type response header and render XML (TwiML) response in a 
     // Jade template - sends a text message back to user
