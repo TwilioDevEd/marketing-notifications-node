@@ -19,3 +19,11 @@ footer {
 footer i {
     color:red;
 }
+
+.box {
+    border-radius: 5px;
+}
+
+.box p {
+    padding:10px;
+}
