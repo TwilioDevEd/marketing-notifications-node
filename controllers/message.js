@@ -42,23 +42,28 @@ exports.webhook = function(request, response) {
 
         // Conditional logic to do different things based on the command from
         // the user
-        if (msg === 'subscribe') {
+        if (msg === 'subscribe' || msg === 'unsubscribe') {
             // If the user has elected to subscribe for messages, flip the bit
             // and indicate that they have done so.
-            subscriber.subscribed = true;
+            subscriber.subscribed = msg === 'subscribe';
             subscriber.save(function(err) {
                 if (err)
                     return respond('We could not subscribe you - please try '
                         + 'again.');
 
-                // Otherwise, we're subscribed
-                respond('You are now subscribed for updates.');
+                // Otherwise, our subscription has been updated
+                var responseMessage = 'You are now subscribed for updates.';
+                if (!subscriber.subscribed)
+                    responseMessage = 'You have unsubscribed. Text "subscribe"'
+                        + ' to start receiving updates again.';
+
+                respond(responseMessage);
             });
         } else {
             // If we don't recognize the command, text back with the list of
             // available commands
             var responseMessage = 'Sorry, we didn\'t understand that. '
-                + 'available commands are: subscribe';
+                + 'available commands are: subscribe or unsubscribe';
 
             respond(responseMessage);
         }
