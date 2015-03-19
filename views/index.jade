@@ -1,20 +1,23 @@
 extends layout
 
 block content
-  h1 Welcome to the Twilio Starter Project for Node.js and Express!
+  h1 SMS Notifications
 
   p.
-    This starter application contains code samples you can build from to
-    accomplish basic tasks with the Twilio API.  What would you like to do?
+    Use this form to send MMS notifications to any subscribers.
 
-  ul
-    li
-      a(href='/message/send') Send SMS or MMS messages
-    li
-      a(href='/message') Receive SMS or MMS messages
-    li
-      a(href='/voice/call') Make phone calls
-    li
-      a(href='/voice') Receive phone calls
-    li
-      a(href='/voip') VoIP calling in the browser
+  form(action='/message/send', method='POST')
+
+    // The text of the message to send
+    .form-group
+      label(for='message') Enter a message
+      input.form-control(type='text', name='message',
+        placeholder='Hi there, gorgeous ;)')
+
+    // An optional image URL
+    .form-group
+      label(for='imageUrl') (Optional) Image URL to send in an MMS
+      input.form-control(type='text', name='imageUrl',
+        placeholder='http://fake.twilio.com/some_image.png')
+
+    button.btn.btn-primary(type='submit') Send Yourself a Message!
