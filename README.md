@@ -4,7 +4,7 @@ This example project demonstrates how to send SMS notifications (for a mobile ma
 
 ## Deploy On Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/sms-notifications-node)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/marketing-notifications-node)
 
 ## Running the Project on Your Machine
 
