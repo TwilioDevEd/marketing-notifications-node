@@ -1,5 +1,5 @@
 {
-  "name": "SMS Notifications",
+  "name": "Marketing Notifications",
   "description": "An example application demonstrating SMS notifications for mobile marketing",
   "keywords": [
     "twilio",
@@ -22,8 +22,8 @@
       "required": true
     }
   },
-  "website": "https://github.com/TwilioDevEd/sms-notifications-node",
-  "repository": "https://github.com/TwilioDevEd/sms-notifications-node",
+  "website": "https://github.com/TwilioDevEd/marketing-notifications-node",
+  "repository": "https://github.com/TwilioDevEd/marketing-notifications-node",
   "logo": "https://s3.amazonaws.com/howtodocs/twilio-logo.png",
   "success_url": "/",
   "addons": [
