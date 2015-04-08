@@ -1,0 +1,59 @@
+.step(data-title='User Story: Send SMS or MMS Notifications', data-file="controllers/router.js", data-language="javascript")
+  :markdown
+    ### User Story: Send SMS or MMS Notifications
+
+    <blockquote>As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.</blockquote>
+
+    Now that we have a list of subscribers for our awesome SMS and MMS content, we need to provide our marketing team some kind of interface to send out messages.
+
+    To make this happen, we will need to update our application to do a few things:
+
+    * Create a route to render a web form that an administrator can interact with
+    * Create a controller function to handle the form submission
+    * Use the Twilio API to send out messages to all current subscribers
+
+    Let's begin at the front end with the web form our administrators will interact with.
+
+.step(data-title='Creating the Web Form', data-file='views/index.jade', data-language='jade')
+  :markdown
+    ### Creating the Web Form
+
+    Here we use Jade to render an HTML document containing a web form to be used by our marketing campaign administrators.
+
+    It just has a couple of fields - one to specify a text message, and another to specify an optional URL to an image on the public Internet that we could send via MMS.
+
+    Let's go to the controller next to see what happens when the form is submitted.
+
+.step(data-title='Handling the Form Submission', data-file='controllers/message.js', data-highlight='82-98')
+  :markdown
+    ### Handling the Form Submission
+
+    On the server, we grab the message text and image URL from the POST body, and use a function on our `Subscriber` model to send text messages to all current subscribers.
+
+    When the messages are on their way, we redirect back to the same web form with a [flash](https://github.com/jaredhanson/connect-flash) message containing feedback about the messaging attempt.
+
+    Let's jump into the model now to see how these messages are sent out.
+
+.step(data-title='Configuring a Twilio REST Client', data-file='models/Subscriber.js', data-highlight='2-6')
+  :markdown
+    ### Configuring a Twilio REST Client
+
+    When the model object is loaded, it creates a [Twilio REST API client](http://twilio.github.io/twilio-node) that it can use to send SMS and MMS messages. The client requires your Twilio account credentials (an account SID and auth token), which can be found [in the account portal](/user/account/voice-messaging).
+
+    Let's check out the static function that sends the messages next.
+
+.step(data-title='Sending the Messages', data-file='models/Subscriber.js', data-highlight="16-64")
+  :markdown
+    ### Sending the Messages
+
+    Here we define a "static" function on the model which will query that database for all `Subscribers` that have opted in to receive notifications.
+
+    Once the list of active subscribers has been found, we loop through and send each of them a message based on the parameters sent in from the controller. If there's no image URL associated with the message, we omit that field from the Twilio API request.
+
+.step(data-title='All Done!', data-file='models/Subscriber.js', data-highlight='')
+  :markdown
+    ### All Done!
+
+    That's it! We've just implemented a an opt-in process and an administrative interface to run an SMS and MMS marketing campaign. Now all you need is killer content to share with your users via text or MMS.
+
+    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.

@@ -1,0 +1,47 @@
+.step(data-title='User Story: Manage Subscriptions', data-file='controllers/message.js', data-highlight='')
+  :markdown
+    ### User Story: Manage Subscriptions
+
+    <blockquote>As a User, I would like to manage my subscription status via text message.</blockquote>
+
+    We want to provide the user with two SMS commands to manage their subscription status: `subscribe` and `unsubscribe`.  These commands will toggle a boolean flag for their `Subscriber` record in the database, and will determine whether or not they receive messages from our marketing campaign. Because we're not jerks, we don't opt them in automatically - rather, we have them confirm that they want to receive messages from us first.
+
+    To make this happen, we will need to update the controller logic which handles the incoming text message to do a couple things:
+
+    * If the texter is a person already in the database, parse the message they sent to see if it's a command we recognize
+    * If it is a `subscribe` or `unsubscribe` command, update their subscription status in the database
+    * If it is a command we don't recognize, send them a message explaining available commands
+
+    Let's go back into our controller function to see how this works.
+
+.step(data-title='Processing an Incoming Message', data-file='controllers/message.js', data-highlight='37-70')
+  :markdown
+    ### Processing an Incoming Message
+
+    This internal function handles parsing the incoming message from the user and executing conditional logic to see if they have issued us a command we recognize. It's executed after we have already hit the database once to retrieve the current `Subscriber` model.
+
+.step(data-title='Handling a Subscription Command', data-file='controllers/message.js', data-highlight="46-61")
+  :markdown
+    ### Handling a Subscription Command
+
+    If the user has texted `subscribe` or `unsubscribe`, we will update their subscription status in the database. We will then respond to them via SMS with the opposite command to either opt in to updates or opt out.
+
+.step(data-title='Listing Available Commands', data-file='controllers/message.js', data-highlight='63-68')
+  :markdown
+    ### Listing Available Commands
+
+    If they texted in something we don't recognize, we respond to them with a listing of all known commands. We could take this further and implement "help" text for each command, but in this simple use case the commands should be self-explanatory.
+
+.step(data-title='Responding with TwiML', data-file='controllers/message.js', data-highlight='72-79')
+  :markdown
+    ### Responding with TwiML
+
+    This `respond` helper function handles generating a TwiML (XML) response using a Jade template.  It's pretty simple, but for completeness let's peek at it to see what it does.
+
+.step(data-title='Responding with TwiML', data-file='views/twiml.jade', data-language="jade")
+  :markdown
+    ### Responding with TwiML: Jade Template
+
+    [Jade](http://jade-lang.com/) is a popular template engine for Node.js that can be used to generate HTML or XML markup in a web application. We use Jade here to generate a TwiML `Response` containing a `Message` tag with the text we defined in the controller. This will tell Twilio to respond with a text message to the incoming message we just parsed.
+
+    That's it for the user-facing commands! Now, we need to provide our marketing team with an interface to send messages out to all subscribers. Let's take a look at that next.

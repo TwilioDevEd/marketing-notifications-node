@@ -1,0 +1,84 @@
+.step(data-title='Introduction')
+  :markdown
+    ### SMS and MMS Marketing Notifications
+
+    Ready to implement SMS and MMS marketing notifications? Here's how it works at a high level:
+
+    1. A user you'd like to reach sends an SMS text message to a Twilio phone number you advertise in print, online, or in TV advertising
+
+    1. Your application confirms that the user wants to receive SMS and MMS notifications from your application
+
+    1. An adminsitrator or marketing campaign manager uses a web form to craft a message that will go out to all subscribers via SMS/MMS message
+
+    ### Building Blocks
+
+    To get this done, you'll be working with the following Twilio APIs:
+
+    * [TwiML](http://www.local.twilio.com/docs/api/twiml) and the [&lt;Message&gt; Verb](/docs/api/twiml/sms/message): We'll use TwiML to manage interactions initiated by the user via SMS
+    * [Messages Resource](/docs/api/rest/sending-sms): We will use the REST API to broadcast messages out to all subscribers
+
+    ### How To Read This Tutorial
+
+    In this tutorial, we will be working through a series of [user stories](http://en.wikipedia.org/wiki/User_story) that describe how to fully implement this Twilio-powered application. Each will describe a major step on the road to implementing this functionality yourself.
+
+    Let's get started! Click the right arrow to move on to the next step of the tutorial.
+
+.step(data-title='User Story: Subscribe for Updates', data-file='models/Subscriber.js', data-highlight='')
+  :markdown
+    ### User Story: Subscribe for Updates
+
+    <blockquote>As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.</blockquote>
+
+    In order to send out marketing notifications to a user, we need to provide a way for them to opt in to receive updates. We accomplish this by having them send a text message to a Twilio number in our account, and then save their phone number in our database.
+
+    To make this happen, we will need to implement a couple of things:
+    * a model object to save information about a `Subscriber`
+    * an [Express](http://expressjs.com) web application that can respond to [Twilio webhook requests](/docs/api/twiml/sms/twilio_request) when our number gets an incoming text.
+
+    Let's start by looking at the model for a `Subscriber`.
+
+.step(data-title='Creating a Subscriber', data-file='models/Subscriber.js', data-highlight='8-14')
+  :markdown
+    ### Creating a Subscriber
+
+    We begin by adding a [Mongoose](http://mongoosejs.com/) model that will help us store information about a subscriber in a MongoDB database.
+
+    For our purposes we don't need to store very much information about the subscriber - just their phone number (so we can send them updates) and a boolean flag indicating whether or not they are opted-in to receive updates.
+
+    Now that we have a model object to save a subscriber, let's move up to the controller level to see how we create one.
+
+.step(data-title='Creating a Webhook Route', data-file='controllers/router.js')
+  :markdown
+    ### Creating a Webhook Route
+
+    In an Express web application, we can configure one or many JavaScript functions to handle incoming HTTP requests. When Twilio receives an incoming message, it will send an HTTP POST request to our server.
+
+    Here, we configure all the routes our application will handle, and map those routes to controller functions.
+
+.step(data-title='Mapping the Webhook to a Route', data-file='controllers/router.js', data-highlight='6-7')
+  :markdown
+    ### Mapping the Webhook to a Route
+
+    Click on one of your Twilio numbers on the [Manage Phone Numbers](/user/account/phone-numbers/incoming) screen in the account portal. For this number, you will need to configure a public server address for your application, as well as the `/message` route which Twilio will POST to when your number gets any incoming messages:
+
+    ![Twilio Number Configuration](//s3.amazonaws.com/howtodocs/marketing-notifications-webhook.png)
+
+    Let's dive into the controller function that will handle incoming messages next.
+
+.step(data-title='Handling An Incoming Message', data-file='controllers/message.js', data-highlight='')
+  :markdown
+    ### Handling An Incoming Message
+
+    Since the `webhook` function will be called every time our application receives a message, it has a lot it needs to do. We'll look at how this function works piece by piece as the tutorial continues, but let's focus on the first message a user sends us for now.
+
+.step(data-title='Creating a New Subscriber', data-file='controllers/message.js', data-highlight="6-35")
+  :markdown
+    ### Creating a New Subscriber
+
+    We begin by getting the texter's phone number from the [incoming Twilio request](/docs/api/twiml/sms/twilio_request). Now, we need to find a `Subscriber` model with that phone number (this should be a unique property of the `Subscriber`).
+
+    If there's no subscriber with this phone number, we create one, save it, and respond with a message asking them to text "subscribe" to confirm that they want to receive messages from us.
+
+    And that's all we want at this step! We've created a `Subscriber` model to keep track of the people that want our messages, and saved them in the database when they text us for the first time.
+
+    Next, let's look at the logic we need to put in place to allow them to manage their subscription status.
