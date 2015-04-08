@@ -1,6 +1,6 @@
 .step(data-title='Introduction')
   :markdown
-    ### SMS and MMS Marketing Notifications
+    ## SMS and MMS Marketing Notifications
 
     Ready to implement SMS and MMS marketing notifications? Here's how it works at a high level:
 
@@ -10,14 +10,14 @@
 
     1. An adminsitrator or marketing campaign manager uses a web form to craft a message that will go out to all subscribers via SMS/MMS message
 
-    ### Building Blocks
+    ## Building Blocks
 
     To get this done, you'll be working with the following Twilio APIs:
 
     * [TwiML](http://www.local.twilio.com/docs/api/twiml) and the [&lt;Message&gt; Verb](/docs/api/twiml/sms/message): We'll use TwiML to manage interactions initiated by the user via SMS
     * [Messages Resource](/docs/api/rest/sending-sms): We will use the REST API to broadcast messages out to all subscribers
 
-    ### How To Read This Tutorial
+    ## How To Read This Tutorial
 
     In this tutorial, we will be working through a series of [user stories](http://en.wikipedia.org/wiki/User_story) that describe how to fully implement this Twilio-powered application. Each will describe a major step on the road to implementing this functionality yourself.
 
@@ -25,7 +25,7 @@
 
 .step(data-title='User Story: Subscribe for Updates', data-file='models/Subscriber.js', data-highlight='')
   :markdown
-    ### User Story: Subscribe for Updates
+    ## User Story: Subscribe for Updates
 
     <blockquote>As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.</blockquote>
 
@@ -39,7 +39,7 @@
 
 .step(data-title='Creating a Subscriber', data-file='models/Subscriber.js', data-highlight='8-14')
   :markdown
-    ### Creating a Subscriber
+    ## Creating a Subscriber
 
     We begin by adding a [Mongoose](http://mongoosejs.com/) model that will help us store information about a subscriber in a MongoDB database.
 
@@ -49,7 +49,7 @@
 
 .step(data-title='Creating a Webhook Route', data-file='controllers/router.js')
   :markdown
-    ### Creating a Webhook Route
+    ## Creating a Webhook Route
 
     In an Express web application, we can configure one or many JavaScript functions to handle incoming HTTP requests. When Twilio receives an incoming message, it will send an HTTP POST request to our server.
 
@@ -57,7 +57,7 @@
 
 .step(data-title='Mapping the Webhook to a Route', data-file='controllers/router.js', data-highlight='6-7')
   :markdown
-    ### Mapping the Webhook to a Route
+    ## Mapping the Webhook to a Route
 
     Click on one of your Twilio numbers on the [Manage Phone Numbers](/user/account/phone-numbers/incoming) screen in the account portal. For this number, you will need to configure a public server address for your application, as well as the `/message` route which Twilio will POST to when your number gets any incoming messages:
 
@@ -67,13 +67,13 @@
 
 .step(data-title='Handling An Incoming Message', data-file='controllers/message.js', data-highlight='')
   :markdown
-    ### Handling An Incoming Message
+    ## Handling An Incoming Message
 
     Since the `webhook` function will be called every time our application receives a message, it has a lot it needs to do. We'll look at how this function works piece by piece as the tutorial continues, but let's focus on the first message a user sends us for now.
 
 .step(data-title='Creating a New Subscriber', data-file='controllers/message.js', data-highlight="6-35")
   :markdown
-    ### Creating a New Subscriber
+    ## Creating a New Subscriber
 
     We begin by getting the texter's phone number from the [incoming Twilio request](/docs/api/twiml/sms/twilio_request). Now, we need to find a `Subscriber` model with that phone number (this should be a unique property of the `Subscriber`).
 

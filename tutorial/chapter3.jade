@@ -1,6 +1,6 @@
 .step(data-title='User Story: Send SMS or MMS Notifications', data-file="controllers/router.js", data-language="javascript")
   :markdown
-    ### User Story: Send SMS or MMS Notifications
+    ## User Story: Send SMS or MMS Notifications
 
     <blockquote>As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.</blockquote>
 
@@ -16,7 +16,7 @@
 
 .step(data-title='Creating the Web Form', data-file='views/index.jade', data-language='jade')
   :markdown
-    ### Creating the Web Form
+    ## Creating the Web Form
 
     Here we use Jade to render an HTML document containing a web form to be used by our marketing campaign administrators.
 
@@ -26,7 +26,7 @@
 
 .step(data-title='Handling the Form Submission', data-file='controllers/message.js', data-highlight='82-98')
   :markdown
-    ### Handling the Form Submission
+    ## Handling the Form Submission
 
     On the server, we grab the message text and image URL from the POST body, and use a function on our `Subscriber` model to send text messages to all current subscribers.
 
@@ -36,7 +36,7 @@
 
 .step(data-title='Configuring a Twilio REST Client', data-file='models/Subscriber.js', data-highlight='2-6')
   :markdown
-    ### Configuring a Twilio REST Client
+    ## Configuring a Twilio REST Client
 
     When the model object is loaded, it creates a [Twilio REST API client](http://twilio.github.io/twilio-node) that it can use to send SMS and MMS messages. The client requires your Twilio account credentials (an account SID and auth token), which can be found [in the account portal](/user/account/voice-messaging).
 
@@ -44,7 +44,7 @@
 
 .step(data-title='Sending the Messages', data-file='models/Subscriber.js', data-highlight="16-64")
   :markdown
-    ### Sending the Messages
+    ## Sending the Messages
 
     Here we define a "static" function on the model which will query that database for all `Subscribers` that have opted in to receive notifications.
 
@@ -52,7 +52,7 @@
 
 .step(data-title='All Done!', data-file='models/Subscriber.js', data-highlight='')
   :markdown
-    ### All Done!
+    ## All Done!
 
     That's it! We've just implemented a an opt-in process and an administrative interface to run an SMS and MMS marketing campaign. Now all you need is killer content to share with your users via text or MMS.
 
