@@ -24,11 +24,9 @@
     Let's get started! Click the right arrow to move on to the next step of the tutorial.
 
 .step(data-title='User Story: Subscribe for Updates', data-file='models/Subscriber.js', data-highlight='')
+  h2 User Story: Subscribe for Updates
+  blockquote As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.
   :markdown
-    ## User Story: Subscribe for Updates
-
-    <blockquote>As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.</blockquote>
-
     In order to send out marketing notifications to a user, we need to provide a way for them to opt in to receive updates. We accomplish this by having them send a text message to a Twilio number in our account, and then save their phone number in our database.
 
     To make this happen, we will need to implement a couple of things:
