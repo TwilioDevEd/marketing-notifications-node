@@ -1,6 +1,5 @@
 .step(data-title='User Story: Manage Subscriptions', data-file='controllers/message.js', data-highlight='')
   h2 User Story: Manage Subscriptions
-
   blockquote As a User, I would like to manage my subscription status via text message.
   :markdown
     We want to provide the user with two SMS commands to manage their subscription status: `subscribe` and `unsubscribe`.  These commands will toggle a boolean flag for their `Subscriber` record in the database, and will determine whether or not they receive messages from our marketing campaign. Because we're not jerks, we don't opt them in automatically - rather, we have them confirm that they want to receive messages from us first.
