@@ -25,7 +25,7 @@
   "website": "https://github.com/TwilioDevEd/marketing-notifications-node",
   "repository": "https://github.com/TwilioDevEd/marketing-notifications-node",
   "logo": "https://s3.amazonaws.com/howtodocs/twilio-logo.png",
-  "success_url": "/",
+  "success_url": "/landing.html",
   "addons": [
     "mongolab"
   ]
