@@ -14,7 +14,7 @@ Hit the button!
 
 Go to your dashboard on [Twilio](https://www.twilio.com/user/account/phone-numbers/incoming). Click on Twilio Numbers and choose a number to setup.
 
-On the phone number page, enter `https://<appname.herokuapp.com>/incoming` into the _Messaging_ Request URL field.
+On the phone number page, enter `https://<appname.herokuapp.com>/message` into the _Messaging_ Request URL field.
 
 [![Request URL](http://howtodocs.s3.amazonaws.com/setup-twilio-number.png)]
 
