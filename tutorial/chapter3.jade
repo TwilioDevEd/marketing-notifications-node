@@ -1,4 +1,4 @@
-.step(data-title='User Story: Send SMS or MMS Notifications', data-file="controllers/router.js", data-language="javascript")
+.step(data-title='User Story: Send SMS or MMS Notifications', data-file="controllers/router.js")
   h2 User Story: Send SMS or MMS Notifications
   blockquote As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.
   :markdown
@@ -12,7 +12,7 @@
 
     Let's begin at the front end with the web form our administrators will interact with.
 
-.step(data-title='Creating the Web Form', data-file='views/index.jade', data-language='jade')
+.step(data-title='Creating the Web Form', data-file='views/index.jade')
   :markdown
     ## Creating the Web Form
 
@@ -48,7 +48,7 @@
 
     Once the list of active subscribers has been found, we loop through and send each of them a message based on the parameters sent in from the controller. If there's no image URL associated with the message, we omit that field from the Twilio API request.
 
-.step(data-title='All Done!', data-file='models/Subscriber.js', data-highlight='')
+.step(data-title='All Done!', data-file='models/Subscriber.js')
   :markdown
     ## All Done!
 

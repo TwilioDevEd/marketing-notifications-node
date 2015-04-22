@@ -1,5 +1,6 @@
 {
     "title": "SMS and MMS Marketing Notifications",
+    "description": "SMS and MMS messages are a personal way to engage with users, offering a much higher open rate than e-mail and more impact than a tweet. Learn how to engage customers in a mobile marketing campaign using SMS and MMS messages.",
     "repo": "TwilioDevEd/marketing-notifications-node",
     "heroku": true
 }
