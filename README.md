@@ -2,6 +2,8 @@
 
 This example project demonstrates how to send SMS notifications (for a mobile marketing campaign) using Node.js and Express.
 
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)!
+
 # Running the Project in production
 
 ## Step 1: Deploy to Heroku
