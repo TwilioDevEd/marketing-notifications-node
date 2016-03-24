@@ -10,7 +10,7 @@ This example project demonstrates how to send SMS notifications (for a mobile ma
 
 Hit the button!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/marketing-notifications-node)]
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/marketing-notifications-node)
 
 ## Step 2: Configure your Twilio number
 
@@ -18,7 +18,7 @@ Go to your dashboard on [Twilio](https://www.twilio.com/user/account/phone-numbe
 
 On the phone number page, enter `https://<appname.herokuapp.com>/message` into the _Messaging_ Request URL field.
 
-[![Request URL](http://howtodocs.s3.amazonaws.com/setup-twilio-number.png)]
+[![Request URL]](http://howtodocs.s3.amazonaws.com/setup-twilio-number.png)
 
 ## Step 3: Wrap Up!
 
