@@ -2,7 +2,7 @@
 
 This example project demonstrates how to send SMS notifications (for a mobile marketing campaign) using Node.js and Express.
 
-[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)!
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)
 
 # Running the Project in production
 
@@ -10,7 +10,7 @@ This example project demonstrates how to send SMS notifications (for a mobile ma
 
 Hit the button!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/marketing-notifications-node)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/marketing-notifications-node)]
 
 ## Step 2: Configure your Twilio number
 
