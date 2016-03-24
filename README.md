@@ -2,7 +2,7 @@
 
 This example project demonstrates how to send SMS notifications (for a mobile marketing campaign) using Node.js and Express.
 
-[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)!
 
 # Running the Project in production
 
@@ -18,7 +18,7 @@ Go to your dashboard on [Twilio](https://www.twilio.com/user/account/phone-numbe
 
 On the phone number page, enter `https://<appname.herokuapp.com>/message` into the _Messaging_ Request URL field.
 
-[![Request URL]](http://howtodocs.s3.amazonaws.com/setup-twilio-number.png)
+![Request URL](http://howtodocs.s3.amazonaws.com/setup-twilio-number.png)
 
 ## Step 3: Wrap Up!
 
