@@ -12,30 +12,35 @@
 }</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="SMS and MMS Marketing Notifications"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">SMS and MMS Marketing Notifications</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>SMS and MMS messages are a personal way to engage with users, offering a much higher open rate than e-mail and more impact than a tweet. Learn how to engage customers in a mobile marketing campaign using SMS and MMS messages.</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="Subscribing for Notifications" class="chapter"><div data-title="Introduction" class="step"><h2 id="sms-and-mms-marketing-notifications">SMS and MMS Marketing Notifications</h2>
 <p>Ready to implement SMS and MMS marketing notifications? Here&#39;s how it works at a high level:</p>
 <ol>
-<li><p>A user you&#39;d like to reach sends an SMS text message to a Twilio phone number you advertise in print, online, or in TV advertising</p>
-</li>
-<li><p>Your application confirms that the user wants to receive SMS and MMS notifications from your application</p>
-</li>
-<li><p>An adminsitrator or marketing campaign manager uses a web form to craft a message that will go out to all subscribers via SMS/MMS message</p>
-</li>
+<li>A possible customer sends an SMS to a Twilio phone number you advertise
+either online, on printed propaganda or on TV advertising.</li>
+<li>Your application confirms that the user wants to receive SMS and MMS
+notifications from your application.</li>
+<li>An administrator or marketing campaign manager uses a web form to craft a
+message that will go out to all subscribers via SMS/MMS message.</li>
 </ol>
 <h2 id="building-blocks">Building Blocks</h2>
-<p>To get this done, you&#39;ll be working with the following Twilio APIs:</p>
+<p>To get this done, you&#39;ll be working with the following tools:</p>
 <ul>
-<li><a href="http://www.local.twilio.com/docs/api/twiml">TwiML</a> and the <a href="/docs/api/twiml/sms/message">&lt;Message&gt; Verb</a>: We&#39;ll use TwiML to manage interactions initiated by the user via SMS</li>
-<li><a href="/docs/api/rest/sending-sms">Messages Resource</a>: We will use the REST API to broadcast messages out to all subscribers</li>
+<li><a href="//www.local.twilio.com/docs/api/twiml">TwiML</a> and the <a href="/docs/api/twiml/sms/message">&lt;Message&gt;
+Verb</a>: We&#39;ll use TwiML to manage interactions
+initiated by the user via SMS.</li>
+<li><a href="/docs/api/rest/sending-sms">Messages Resource</a>: We will use the REST API
+to broadcast messages out to all subscribers.</li>
 </ul>
 <h2 id="how-to-read-this-tutorial">How To Read This Tutorial</h2>
 <p>In this tutorial, we will be working through a series of <a href="http://en.wikipedia.org/wiki/User_story">user stories</a> that describe how to fully implement this Twilio-powered application. Each will describe a major step on the road to implementing this functionality yourself.</p>
 <p>Let&#39;s get started! Click the right arrow to move on to the next step of the tutorial.</p>
-</div><div data-title="User Story: Subscribe for Updates" data-file="models/Subscriber.js" data-highlight="" class="step"><h2>User Story: Subscribe for Updates</h2><blockquote>As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.</blockquote><p>In order to send out marketing notifications to a user, we need to provide a way for them to opt in to receive updates. We accomplish this by having them send a text message to a Twilio number in our account, and then save their phone number in our database.</p>
+</div><div data-title="Subscriber" data-file="models/Subscriber.js" data-highlight="" class="step"><h2 id="subscriber">Subscriber</h2>
+<p>In order to send out marketing notifications to a subscriber, we need to
+provide the right model.</p>
 <p>To make this happen, we will need to implement a couple of things:</p>
 <ul>
 <li>a model object to save information about a <code>Subscriber</code></li>
 <li>an <a href="http://expressjs.com">Express</a> web application that can respond to <a href="/docs/api/twiml/sms/twilio_request">Twilio webhook requests</a> when our number gets an incoming text.</li>
 </ul>
 <p>Let&#39;s start by looking at the model for a <code>Subscriber</code>.</p>
-</div><div data-title="Creating a Subscriber" data-file="models/Subscriber.js" data-highlight="8-14" class="step"><h2 id="creating-a-subscriber">Creating a Subscriber</h2>
+</div><div data-title="Creating Subscribers" data-file="models/Subscriber.js" data-highlight="8-14" class="step"><h2 id="creating-subscribers">Creating Subscribers</h2>
 <p>We begin by adding a <a href="http://mongoosejs.com/">Mongoose</a> model that will help us store information about a subscriber in a MongoDB database.</p>
 <p>For our purposes we don&#39;t need to store very much information about the subscriber - just their phone number (so we can send them updates) and a boolean flag indicating whether or not they are opted-in to receive updates.</p>
 <p>Now that we have a model object to save a subscriber, let&#39;s move up to the controller level to see how we create one.</p>
@@ -69,10 +74,10 @@
 <p>If they texted in something we don&#39;t recognize, we respond to them with a listing of all known commands. We could take this further and implement &quot;help&quot; text for each command, but in this simple use case the commands should be self-explanatory.</p>
 </div><div data-title="Responding with TwiML" data-file="controllers/message.js" data-highlight="72-79" class="step"><h2 id="responding-with-twiml">Responding with TwiML</h2>
 <p>This <code>respond</code> helper function handles generating a TwiML (XML) response using a Jade template.  It&#39;s pretty simple, but for completeness let&#39;s peek at it to see what it does.</p>
-</div><div data-title="Responding with TwiML" data-file="views/twiml.jade" data-language="jade" class="step"><h2 id="responding-with-twiml-jade-template">Responding with TwiML: Jade Template</h2>
+</div><div data-title="Responding with TwiML" data-file="views/twiml.jade" class="step"><h2 id="responding-with-twiml-jade-template">Responding with TwiML: Jade Template</h2>
 <p><a href="http://jade-lang.com/">Jade</a> is a popular template engine for Node.js that can be used to generate HTML or XML markup in a web application. We use Jade here to generate a TwiML <code>Response</code> containing a <code>Message</code> tag with the text we defined in the controller. This will tell Twilio to respond with a text message to the incoming message we just parsed.</p>
 <p>That&#39;s it for the user-facing commands! Now, we need to provide our marketing team with an interface to send messages out to all subscribers. Let&#39;s take a look at that next.</p>
-</div></div><div data-title="Sending Messages" class="chapter"><div data-title="User Story: Send SMS or MMS Notifications" data-file="controllers/router.js" data-language="javascript" class="step"><h2>User Story: Send SMS or MMS Notifications</h2><blockquote>As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.</blockquote><p>Now that we have a list of subscribers for our awesome SMS and MMS content, we need to provide our marketing team some kind of interface to send out messages.</p>
+</div></div><div data-title="Sending Messages" class="chapter"><div data-title="User Story: Send SMS or MMS Notifications" data-file="controllers/router.js" class="step"><h2>User Story: Send SMS or MMS Notifications</h2><blockquote>As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.</blockquote><p>Now that we have a list of subscribers for our awesome SMS and MMS content, we need to provide our marketing team some kind of interface to send out messages.</p>
 <p>To make this happen, we will need to update our application to do a few things:</p>
 <ul>
 <li>Create a route to render a web form that an administrator can interact with</li>
@@ -80,7 +85,7 @@
 <li>Use the Twilio API to send out messages to all current subscribers</li>
 </ul>
 <p>Let&#39;s begin at the front end with the web form our administrators will interact with.</p>
-</div><div data-title="Creating the Web Form" data-file="views/index.jade" data-language="jade" class="step"><h2 id="creating-the-web-form">Creating the Web Form</h2>
+</div><div data-title="Creating the Web Form" data-file="views/index.jade" class="step"><h2 id="creating-the-web-form">Creating the Web Form</h2>
 <p>Here we use Jade to render an HTML document containing a web form to be used by our marketing campaign administrators.</p>
 <p>It just has a couple of fields - one to specify a text message, and another to specify an optional URL to an image on the public Internet that we could send via MMS.</p>
 <p>Let&#39;s go to the controller next to see what happens when the form is submitted.</p>
@@ -94,7 +99,7 @@
 </div><div data-title="Sending the Messages" data-file="models/Subscriber.js" data-highlight="16-64" class="step"><h2 id="sending-the-messages">Sending the Messages</h2>
 <p>Here we define a &quot;static&quot; function on the model which will query that database for all <code>Subscribers</code> that have opted in to receive notifications.</p>
 <p>Once the list of active subscribers has been found, we loop through and send each of them a message based on the parameters sent in from the controller. If there&#39;s no image URL associated with the message, we omit that field from the Twilio API request.</p>
-</div><div data-title="All Done!" data-file="models/Subscriber.js" data-highlight="" class="step"><h2 id="all-done-">All Done!</h2>
+</div><div data-title="All Done!" data-file="models/Subscriber.js" class="step"><h2 id="all-done-">All Done!</h2>
 <p>That&#39;s it! We&#39;ve just implemented a an opt-in process and an administrative interface to run an SMS and MMS marketing campaign. Now all you need is killer content to share with your users via text or MMS.</p>
 <p>Thanks for checking out this tutorial! If you have any feedback to share with us, we&#39;d love to hear it. Tweet <a href="http://twitter.com/twilio">@twilio</a> to let us know what you think.</p>
 </div></div>
@@ -104,4 +109,4 @@
 <textarea class="saurus-file" data-file="views/twiml.jade" data-mode="jade">ZG9jdHlwZSB4bWwKUmVzcG9uc2UKICBNZXNzYWdlPSBtZXNzYWdl</textarea>
 <textarea class="saurus-file" data-file="views/index.jade" data-mode="jade">ZXh0ZW5kcyBsYXlvdXQKCmJsb2NrIGNvbnRlbnQKICBoMSBTTVMgTm90aWZpY2F0aW9ucwoKICBwLgogICAgVXNlIHRoaXMgZm9ybSB0byBzZW5kIE1NUyBub3RpZmljYXRpb25zIHRvIGFueSBzdWJzY3JpYmVycy4KCiAgZm9ybShhY3Rpb249Jy9tZXNzYWdlL3NlbmQnLCBtZXRob2Q9J1BPU1QnKQoKICAgIC8vIFRoZSB0ZXh0IG9mIHRoZSBtZXNzYWdlIHRvIHNlbmQKICAgIC5mb3JtLWdyb3VwCiAgICAgIGxhYmVsKGZvcj0nbWVzc2FnZScpIEVudGVyIGEgbWVzc2FnZQogICAgICBpbnB1dC5mb3JtLWNvbnRyb2wodHlwZT0ndGV4dCcsIG5hbWU9J21lc3NhZ2UnLAogICAgICAgIHBsYWNlaG9sZGVyPSdIaSB0aGVyZSwgZ29yZ2VvdXMgOyknKQoKICAgIC8vIEFuIG9wdGlvbmFsIGltYWdlIFVSTAogICAgLmZvcm0tZ3JvdXAKICAgICAgbGFiZWwoZm9yPSdpbWFnZVVybCcpIChPcHRpb25hbCkgSW1hZ2UgVVJMIHRvIHNlbmQgaW4gYW4gTU1TCiAgICAgIGlucHV0LmZvcm0tY29udHJvbCh0eXBlPSd0ZXh0JywgbmFtZT0naW1hZ2VVcmwnLAogICAgICAgIHBsYWNlaG9sZGVyPSdodHRwOi8vZmFrZS50d2lsaW8uY29tL3NvbWVfaW1hZ2UucG5nJykKCiAgICBidXR0b24uYnRuLmJ0bi1wcmltYXJ5KHR5cGU9J3N1Ym1pdCcpIFNlbmQgWW91cnNlbGYgYSBNZXNzYWdlIQ==</textarea>
 </div>
-</div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>
+</div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/marketing-notifications-node" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>

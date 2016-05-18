@@ -4,18 +4,22 @@
 
     Ready to implement SMS and MMS marketing notifications? Here's how it works at a high level:
 
-    1. A user you'd like to reach sends an SMS text message to a Twilio phone number you advertise in print, online, or in TV advertising
-
-    1. Your application confirms that the user wants to receive SMS and MMS notifications from your application
-
-    1. An adminsitrator or marketing campaign manager uses a web form to craft a message that will go out to all subscribers via SMS/MMS message
+    1. A possible customer sends an SMS to a Twilio phone number you advertise
+       either online, on printed propaganda or on TV advertising.
+    1. Your application confirms that the user wants to receive SMS and MMS
+       notifications from your application.
+    1. An administrator or marketing campaign manager uses a web form to craft a
+       message that will go out to all subscribers via SMS/MMS message.
 
     ## Building Blocks
 
-    To get this done, you'll be working with the following Twilio APIs:
+    To get this done, you'll be working with the following tools:
 
-    * [TwiML](http://www.local.twilio.com/docs/api/twiml) and the [&lt;Message&gt; Verb](/docs/api/twiml/sms/message): We'll use TwiML to manage interactions initiated by the user via SMS
-    * [Messages Resource](/docs/api/rest/sending-sms): We will use the REST API to broadcast messages out to all subscribers
+    * [TwiML](//www.local.twilio.com/docs/api/twiml) and the [<Message>
+    Verb](/docs/api/twiml/sms/message): We'll use TwiML to manage interactions
+    initiated by the user via SMS.
+    * [Messages Resource](/docs/api/rest/sending-sms): We will use the REST API
+    to broadcast messages out to all subscribers.
 
     ## How To Read This Tutorial
 
@@ -23,11 +27,12 @@
 
     Let's get started! Click the right arrow to move on to the next step of the tutorial.
 
-.step(data-title='User Story: Subscribe for Updates', data-file='models/Subscriber.js', data-highlight='')
-  h2 User Story: Subscribe for Updates
-  blockquote As a User, I would like to sign up via SMS to receive SMS or MMS updates on my phone.
+.step(data-title='Subscriber', data-file='models/Subscriber.js', data-highlight='')
   :markdown
-    In order to send out marketing notifications to a user, we need to provide a way for them to opt in to receive updates. We accomplish this by having them send a text message to a Twilio number in our account, and then save their phone number in our database.
+    ## Subscriber
+
+    In order to send out marketing notifications to a subscriber, we need to
+    provide the right model.
 
     To make this happen, we will need to implement a couple of things:
     * a model object to save information about a `Subscriber`
@@ -35,9 +40,9 @@
 
     Let's start by looking at the model for a `Subscriber`.
 
-.step(data-title='Creating a Subscriber', data-file='models/Subscriber.js', data-highlight='8-14')
+.step(data-title='Creating Subscribers', data-file='models/Subscriber.js', data-highlight='8-14')
   :markdown
-    ## Creating a Subscriber
+    ## Creating Subscribers
 
     We begin by adding a [Mongoose](http://mongoosejs.com/) model that will help us store information about a subscriber in a MongoDB database.
 
