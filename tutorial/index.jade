@@ -62,7 +62,7 @@
   :markdown
     ## Mapping the Webhook to a Route
 
-    Click on one of your Twilio numbers on the [Manage Phone Numbers](/user/account/phone-numbers/incoming) screen in the account portal. For this number, you will need to configure a public server address for your application, as well as the `/message` route which Twilio will POST to when your number gets any incoming messages:
+    Click on one of your Twilio numbers on the [Manage Phone Numbers](/user/account/phone-numbers/incoming) screen in the account portal. For this number, you will need to configure a public server address for your application, as well as the `/message` route which Twilio will POST when your number gets any incoming messages:
 
     ![Twilio Number Configuration](//s3.amazonaws.com/howtodocs/marketing-notifications-webhook.png)
 
@@ -72,13 +72,13 @@
   :markdown
     ## Handling An Incoming Message
 
-    Since the `webhook` function will be called every time our application receives a message, it has a lot it needs to do. We'll look at how this function works piece by piece as the tutorial continues, but let's focus on the first message a user sends us for now.
+    Since the `webhook` function will be called every time our application receives a message, it has a lot it needs to do. We'll look at how this function works piece by piece as the tutorial continues, but let's focus on the first message the user sends for now.
 
 .step(data-title='Creating a New Subscriber', data-file='controllers/message.js', data-highlight="6-35")
   :markdown
     ## Creating a New Subscriber
 
-    We begin by getting the texter's phone number from the [incoming Twilio request](/docs/api/twiml/sms/twilio_request). Now, we need to find a `Subscriber` model with that phone number (this should be a unique property of the `Subscriber`).
+    We begin by getting the user's phone number from the [incoming Twilio request](/docs/api/twiml/sms/twilio_request). Now, we need to find a `Subscriber` model with that phone number (this should be a unique property of the `Subscriber`).
 
     If there's no subscriber with this phone number, we create one, save it, and respond with a message asking them to text "subscribe" to confirm that they want to receive messages from us.
 
@@ -86,15 +86,16 @@
 
     Next, let's look at the logic we need to put in place to allow them to manage their subscription status.
 
-.step(data-title='User Story: Manage Subscriptions', data-file='controllers/message.js', data-highlight='')
-  h2 User Story: Manage Subscriptions
-  blockquote As a User, I would like to manage my subscription status via text message.
+.step(data-title='User Story: Managing Subscriptions', data-file='controllers/message.js', data-highlight='')
   :markdown
-    We want to provide the user with two SMS commands to manage their subscription status: `subscribe` and `unsubscribe`.  These commands will toggle a boolean flag for their `Subscriber` record in the database, and will determine whether or not they receive messages from our marketing campaign. Because we're not jerks, we don't opt them in automatically - rather, we have them confirm that they want to receive messages from us first.
+    ##User Story: Managing Subscriptions
+
+
+    We want to provide the user with two SMS commands to manage their subscription status: `subscribe` and `unsubscribe`.  These commands will toggle a boolean flag for their `Subscriber` record in the database, and will determine whether or not they receive messages from our marketing campaign. Because we want to respect our users' preferences, we don't opt them in automatically - rather, we have them confirm that they want to receive messages from us first.
 
     To make this happen, we will need to update the controller logic which handles the incoming text message to do a couple things:
 
-    * If the texter is a person already in the database, parse the message they sent to see if it's a command we recognize
+    * If the user is a person already in the database, parse the message they sent to see if it's a command we recognize
     * If it is a `subscribe` or `unsubscribe` command, update their subscription status in the database
     * If it is a command we don't recognize, send them a message explaining available commands
 
@@ -112,11 +113,11 @@
 
     If the user has texted `subscribe` or `unsubscribe`, we will update their subscription status in the database. We will then respond to them via SMS with the opposite command to either opt in to updates or opt out.
 
-.step(data-title='Listing Available Commands', data-file='controllers/message.js', data-highlight='63-68')
+.step(data-title='Listing for Available Commands', data-file='controllers/message.js', data-highlight='63-68')
   :markdown
-    ## Listing Available Commands
+    ## Listing for Available Commands
 
-    If they texted in something we don't recognize, we respond to them with a listing of all known commands. We could take this further and implement "help" text for each command, but in this simple use case the commands should be self-explanatory.
+    If they texted in something we don't recognize, we respond with a listing of all known commands. We could take this further and implement "help" text for each command, but in this simple use case the commands should be self-explanatory.
 
 .step(data-title='Responding with TwiML', data-file='controllers/message.js', data-highlight='72-79')
   :markdown
@@ -124,23 +125,24 @@
 
     This `respond` helper function handles generating a TwiML (XML) response using a Jade template.  It's pretty simple, but for completeness let's peek at it to see what it does.
 
-.step(data-title='Responding with TwiML', data-file='views/twiml.jade')
+.step(data-title='Responding with TwiML: Jade Template', data-file='views/twiml.jade')
   :markdown
     ## Responding with TwiML: Jade Template
 
     [Jade](http://jade-lang.com/) is a popular template engine for Node.js that can be used to generate HTML or XML markup in a web application. We use Jade here to generate a TwiML `Response` containing a `Message` tag with the text we defined in the controller. This will tell Twilio to respond with a text message to the incoming message we just parsed.
 
     That's it for the user-facing commands! Now, we need to provide our marketing team with an interface to send messages out to all subscribers. Let's take a look at that next.
-    .step(data-title='User Story: Send SMS or MMS Notifications', data-file="controllers/router.js")
-  h2 User Story: Send SMS or MMS Notifications
-  blockquote As an Administrator, I want to be able to send an MMS with a message, and optional picture from a web interface.
+
+    .step(data-title='User Story: Sending SMS or MMS Notifications', data-file="controllers/router.js")
   :markdown
+    ## User Story: Sending SMS or MMS Notifications
+
     Now that we have a list of subscribers for our awesome SMS and MMS content, we need to provide our marketing team some kind of interface to send out messages.
 
     To make this happen, we will need to update our application to do a few things:
 
     * Create a route to render a web form that an administrator can interact with
-    * Create a controller function to handle the form submission
+    * Create a controller function to handle the form's submission
     * Use the Twilio API to send out messages to all current subscribers
 
     Let's begin at the front end with the web form our administrators will interact with.
@@ -155,9 +157,9 @@
 
     Let's go to the controller next to see what happens when the form is submitted.
 
-.step(data-title='Handling the Form Submission', data-file='controllers/message.js', data-highlight='82-98')
+.step(data-title="Handling the Form's Submission", data-file='controllers/message.js', data-highlight='82-98')
   :markdown
-    ## Handling the Form Submission
+    ## Handling the Form's Submission
 
     On the server, we grab the message text and image URL from the POST body, and use a function on our `Subscriber` model to send text messages to all current subscribers.
 
@@ -169,13 +171,13 @@
   :markdown
     ## Configuring a Twilio REST Client
 
-    When the model object is loaded, it creates a [Twilio REST API client](http://twilio.github.io/twilio-node) that it can use to send SMS and MMS messages. The client requires your Twilio account credentials (an account SID and auth token), which can be found [in the account portal](/user/account/voice-messaging).
+    When the model object is loaded, it creates a [Twilio REST API client](http://twilio.github.io/twilio-node) that can be used to send SMS and MMS messages. The client requires your Twilio account credentials (an account SID and auth token), which can be found [in the account portal](/user/account/voice-messaging).
 
     Let's check out the static function that sends the messages next.
 
-.step(data-title='Sending the Messages', data-file='models/Subscriber.js', data-highlight="16-64")
+.step(data-title='Sending Messages', data-file='models/Subscriber.js', data-highlight="16-64")
   :markdown
-    ## Sending the Messages
+    ## Sending Messages
 
     Here we define a "static" function on the model which will query that database for all `Subscribers` that have opted in to receive notifications.
 
@@ -187,4 +189,4 @@
 
     That's it! We've just implemented a an opt-in process and an administrative interface to run an SMS and MMS marketing campaign. Now all you need is killer content to share with your users via text or MMS.
 
-    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.
+    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it.[Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
