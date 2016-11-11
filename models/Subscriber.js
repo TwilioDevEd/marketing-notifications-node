@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-const Twilio = require('twilio');
+var twilio = require('twilio');
 var config = require('../config');
 
 // create an authenticated Twilio REST API client
-const client = new Twilio(config.accountSid, config.authToken);
+var client = twilio(config.accountSid, config.authToken);
 
 var SubscriberSchema = new mongoose.Schema({
     phone: String,
@@ -37,7 +37,6 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
                 to: subscriber.phone,
                 from: config.twilioNumber,
                 body: message,
-                messagingServiceSid: 'MG9752274e9e519418a7406176694466fa',
             };
 
             // Include media URL if one was given for MMS
