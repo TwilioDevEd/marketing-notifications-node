@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-var twilio = require('twilio');
+const Twilio = require('twilio');
 var config = require('../config');
 
 // create an authenticated Twilio REST API client
-var client = twilio(config.accountSid, config.authToken);
+const client = new Twilio(config.accountSid, config.authToken);
 
 var SubscriberSchema = new mongoose.Schema({
     phone: String,
@@ -21,7 +21,7 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
     }, function(err, docs) {
         if (err || docs.length == 0) {
             return callback.call(this, {
-                message: 'Couldn\'t find any subscribers!'
+                message: 'Could not find any subscribers!'
             });
         }
 
@@ -36,25 +36,17 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
             var options = {
                 to: subscriber.phone,
                 from: config.twilioNumber,
-                body: message
+                body: message,
+                messagingServiceSid: 'MG9752274e9e519418a7406176694466fa',
             };
 
             // Include media URL if one was given for MMS
             if (url) options.mediaUrl = url;
 
             // Send the message!
-            client.sendMessage(options, function(err, response) {
-                if (err) {
-                    // Just log it for now
-                    console.error(err);
-                } else {
-                    // Log the last few digits of a phone number
-                    var masked = subscriber.phone.substr(0, 
-                        subscriber.phone.length - 5);
-                    masked += '*****'; 
-                    console.log('Message sent to ' + masked);
-                }
-            });
+            client.messages.create(options)
+                .then((message) => console.log(message))
+                .catch((error) => console.log(error));
         });
 
         // Don't wait on success/failure, just indicate all messages have been
