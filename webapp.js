@@ -18,14 +18,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Parse incoming form-encoded HTTP bodies
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
 }));
 
 // Create and manage HTTP sessions for all requests
 app.use(session({
     secret: config.secret,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 
 // Use connect-flash to persist informational messages across redirects
@@ -35,7 +35,7 @@ app.use(flash());
 require('./controllers/router')(app);
 
 // Handle 404
-app.use(function (request, response, next) {
+app.use(function(request, response, next) {
     response.status(404);
     response.sendFile(path.join(__dirname, 'public', '404.html'));
 });
