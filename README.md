@@ -28,15 +28,11 @@ Congratulations!
 
 # Running the Project on Your Machine
 
-To run this project on your computer, download or clone the source. You will also need to download and install:
-* [Node.js](http://nodejs.org/) or [io.js](https://iojs.org/en/index.html)
-* [npm](https://www.npmjs.com/)
-
-Finally you will also need to [sign up for a Twilio account](https://www.twilio.com/try-twilio) if you don't have one already.
+To run this project on your computer, download or clone the source. You will also need to download and install either [Node.js](http://nodejs.org/) or [io.js](https://iojs.org/en/index.html), both of which should also install [npm](https://www.npmjs.com/). You will also need to [sign up for a Twilio account](https://www.twilio.com/try-twilio) if you don't have one already.
 
 ## Step 1: Install Dependencies
 
-Navigate to the project directory in your terminal
+Navigate to the project directory in your terminal and run:
 
 ```bash
 npm install
@@ -48,15 +44,7 @@ This should install all of our project dependencies from npm into a local `node_
 
 Next, open `config.js` at the root of the project and update it with values from your environment and your [Twilio account](https://www.twilio.com/user/account/voice-messaging). You can either export these values as system environment variables (this is the default setup), or you can replace these values with hard-coded strings (be careful you don't commit them to git!).
 
-This sample application stores data in a MongoDB database using [Mongoose](http://mongoosejs.com/).
-
-You can download and run MongoDB yourself
-* [OS X](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
-* [Linux](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
-* [Windows](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/))
-* You can also use a hosted service like [compose.io](https://www.compose.io/)
-
-Our application will be looking for a fully qualified MongoDB connection string with a username and password embedded in it.
+This sample application stores data in a MongoDB database using [Mongoose](http://mongoosejs.com/). You can download and run MongoDB yourself ([OS X](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/), [Linux](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/), [Windows](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/)), or you can use a hosted service like [compose.io](https://www.compose.io/).  Our application will be looking for a fully qualified MongoDB connection string with a username and password embedded in it.
 
 ## Step 3: Running the Project
 
@@ -80,9 +68,3 @@ ngrok -subdomain=chunky-danger-monkey 3000
 ## License
 
 MIT
-
-## Meta
-
-* No warranty expressed or implied.  Software is as is. Diggity.
-* [MIT License](http://www.opensource.org/licenses/mit-license.html)
-* Lovingly crafted by Twilio Developer Education.
