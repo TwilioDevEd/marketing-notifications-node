@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/TwilioDevEd/sms-notifications-node",
   "engines": {
-    "node": ">=6.0.0 <8.0.0"
+    "node": ">=6.x"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
