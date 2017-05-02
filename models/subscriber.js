@@ -14,24 +14,18 @@ const SubscriberSchema = new mongoose.Schema({
 });
 
 // Static function to send a message to all current subscribers
-SubscriberSchema.statics.sendMessage = function(message, url, callback) {
+SubscriberSchema.statics.sendMessage = function(message, url) {
     // Find all subscribed users
-    Subscriber.find({
+    return Subscriber.find({
         subscribed: true,
-    }, function(err, docs) {
-        if (err || docs.length == 0) {
+    }).then((docs) => {
+        if (docs.length == 0) {
             return callback.call(this, {
                 message: 'Could not find any subscribers!',
             });
         }
-
-        // Otherwise send messages to all subscribers
-        sendMessages(docs);
-    });
-
-    // Send messages to all subscribers via Twilio
-    function sendMessages(docs) {
-        docs.forEach(function(subscriber) {
+        // Send messages to all subscribers via Twilio
+        return docs.map((subscriber) => {
             // Create options to send the message
             const options = {
                 to: subscriber.phone,
@@ -43,15 +37,19 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
             if (url) options.mediaUrl = url;
 
             // Send the message!
-            client.messages.create(options)
-                .then((message) => console.log(message))
-                .catch((error) => console.log(error));
-        });
-
-        // Don't wait on success/failure, just indicate all messages have been
-        // queued for delivery
-        callback.call(this);
-    }
+            return client.messages.create(options)
+              .then((message) => {
+                console.log(message);
+                return Promise.resolve(message);
+              })
+              .catch((error) => {
+                console.log(error);
+                return Promise.reject(error);
+              });
+        }).reduce((all, currentPromise) => {
+          Promise.all([all, currentPromise]);
+        }, Promise.resolve());
+    });
 };
 
 const Subscriber = mongoose.model('Subscriber', SubscriberSchema);
