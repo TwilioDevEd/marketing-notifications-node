@@ -1,9 +1,9 @@
-var Subscriber = require('../models/Subscriber');
+const Subscriber = require('../models/Subscriber');
 
 // Create a function to handle Twilio SMS / MMS webhook requests
 exports.webhook = function(request, response) {
     // Get the user's phone number
-    var phone = request.body.From;
+    const phone = request.body.From;
 
     // Try to find a subscriber with the given phone number
     Subscriber.findOne({
@@ -14,7 +14,7 @@ exports.webhook = function(request, response) {
         if (!sub) {
             // If there's no subscriber associated with this phone number,
             // create one
-            var newSubscriber = new Subscriber({
+            const newSubscriber = new Subscriber({
                 phone: phone,
             });
 
@@ -36,7 +36,7 @@ exports.webhook = function(request, response) {
     // Process any message the user sent to us
     function processMessage(subscriber) {
         // get the text message command sent by the user
-        var msg = request.body.Body || '';
+        const msg = request.body.Body || '';
         msg = msg.toLowerCase().trim();
 
         // Conditional logic to do different things based on the command from
@@ -51,7 +51,7 @@ exports.webhook = function(request, response) {
                         + 'again.');
 
                 // Otherwise, our subscription has been updated
-                var responseMessage = 'You are now subscribed for updates.';
+                const responseMessage = 'You are now subscribed for updates.';
                 if (!subscriber.subscribed)
                     responseMessage = 'You have unsubscribed. Text "subscribe"'
                         + ' to start receiving updates again.';
@@ -61,7 +61,7 @@ exports.webhook = function(request, response) {
         } else {
             // If we don't recognize the command, text back with the list of
             // available commands
-            var responseMessage = 'Sorry, we didn\'t understand that. '
+            const responseMessage = 'Sorry, we didn\'t understand that. '
                 + 'available commands are: subscribe or unsubscribe';
 
             respond(responseMessage);
@@ -81,8 +81,8 @@ exports.webhook = function(request, response) {
 // Handle form submission
 exports.sendMessages = function(request, response) {
     // Get message info from form submission
-    var message = request.body.message;
-    var imageUrl = request.body.imageUrl;
+    const message = request.body.message;
+    const imageUrl = request.body.imageUrl;
 
     // Use model function to send messages to all subscribers
     Subscriber.sendMessage(message, imageUrl, function(err) {

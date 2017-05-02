@@ -1,5 +1,5 @@
-var pages = require('./pages');
-var message = require('./message');
+const pages = require('./pages');
+const message = require('./message');
 
 // Map routes to controller functions
 module.exports = function(app) {

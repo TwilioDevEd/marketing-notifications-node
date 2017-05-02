@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-var twilio = require('twilio');
-var config = require('../config');
+const mongoose = require('mongoose');
+const twilio = require('twilio');
+const config = require('../config');
 
 // create an authenticated Twilio REST API client
-var client = twilio(config.accountSid, config.authToken);
+const client = twilio(config.accountSid, config.authToken);
 
-var SubscriberSchema = new mongoose.Schema({
+const SubscriberSchema = new mongoose.Schema({
     phone: String,
     subscribed: {
         type: Boolean,
@@ -33,7 +33,7 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
     function sendMessages(docs) {
         docs.forEach(function(subscriber) {
             // Create options to send the message
-            var options = {
+            const options = {
                 to: subscriber.phone,
                 from: config.twilioNumber,
                 body: message,
@@ -54,5 +54,5 @@ SubscriberSchema.statics.sendMessage = function(message, url, callback) {
     }
 };
 
-var Subscriber = mongoose.model('Subscriber', SubscriberSchema);
+const Subscriber = mongoose.model('Subscriber', SubscriberSchema);
 module.exports = Subscriber;
