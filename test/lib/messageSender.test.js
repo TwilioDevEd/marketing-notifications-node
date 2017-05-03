@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 const Subscriber = require('../../models/subscriber');
 
-describe.only('subscriber', function() {
+describe('subscriber', function() {
   const createStub = sinon.stub();
   const twilioClient = {
     messages: {create: createStub},
