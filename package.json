@@ -4,7 +4,8 @@
   "description": "An example application demonstrating SMS notifications for mobile marketing",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "start": "node index.js",
+    "test": "NODE_ENV=test && ./node_modules/.bin/eslint . && node_modules/mocha/bin/mocha --recursive"
   },
   "repository": {
     "type": "git",
@@ -24,20 +25,29 @@
     "url": "https://github.com/TwilioDevEd/sms-notifications-node/issues"
   },
   "homepage": "https://github.com/TwilioDevEd/sms-notifications-node",
-  "engines" : { "node" : ">=4.1.0 <5.5.0" },
+  "engines": {
+    "node": ">=6.x"
+  },
   "dependencies": {
-    "body-parser": "^1.12.0",
+    "body-parser": "^1.17.1",
     "connect-flash": "^0.1.1",
-    "express": "^4.12.0",
-    "express-session": "^1.10.3",
-    "http-auth": "^2.2.5",
-    "jade": "^1.9.2",
-    "mongoose": "^3.8.23",
-    "morgan": "^1.5.1",
-    "twilio": "^1.11.1"
+    "dotenv-safe": "^4.0.4",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "http-auth": "^3.1.3",
+    "jade": "^1.11.0",
+    "mongoose": "^4.9.7",
+    "morgan": "^1.8.1",
+    "twilio": "~3.0.0-rc.16"
   },
   "devDependencies": {
-    "chai": "^2.1.0",
-    "mocha": "^2.1.0"
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.1",
+    "mocha": "^3.1.2",
+    "mongo-in-memory": "0.0.5",
+    "proxyquire": "^1.7.11",
+    "sinon": "^2.2.0",
+    "supertest": "^3.0.0"
   }
 }

@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- 'stable'
+- '6.0.0'
+services: mongodb
+env:
+  global:
+    - export TWILIO_ACCOUNT_SID=ACYour-Account-SID
+    - export TWILIO_AUTH_TOKEN=Your-Twilio-Auth-Token
+    - export TWILIO_NUMBER=Your-Twilio-Phone-Number
