@@ -5,6 +5,8 @@
 
 # SMS Notifications for Node.js and Express
 
+[![Build Status](https://travis-ci.org/TwilioDevEd/marketing-notifications-node.svg?branch=master)](https://travis-ci.org/TwilioDevEd/marketing-notifications-node)
+
 This example project demonstrates how to send SMS notifications (for a mobile marketing campaign) using Node.js and Express.
 
 [Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/node/express)!
