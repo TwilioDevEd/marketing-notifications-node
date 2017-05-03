@@ -20,11 +20,11 @@ mongoServerInstance.start((error, config) => {
 });
 
 const connect = () => {
-  mongoose.connect(cfg.mongoUrlTest);
+  return mongoose.connect(cfg.mongoUrlTest);
 };
 
 const disconnect = () => {
-  mongoose.connection.close();
+  return mongoose.connection.close();
 };
 
 exports.connect = connect;
