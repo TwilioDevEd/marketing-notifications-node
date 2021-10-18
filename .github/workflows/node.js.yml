@@ -36,12 +36,10 @@ jobs:
         with:
           mongodb-version: 5
 
+      - name: Create env file
+        run: cp .env.example .env
+
       - name: Install Dependencies
         run: npm install
-      - name: Build and run tests
-        env:    
-          TWILIO_ACCOUNT_SID: ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-          TWILIO_AUTH_TOKEN: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-          TWILIO_NUMBER: +15552737123
-        run: npm run build --if-present
-        run: npm test
+      - run: npm run build --if-present
+      - run: npm test
