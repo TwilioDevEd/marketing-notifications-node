@@ -40,6 +40,18 @@ app.use(function(request, response, next) {
     response.sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+        message: err.message,
+        error: err,
+      });
+    });
+}
+
 // Unhandled errors (500)
 app.use(function(err, request, response, next) {
     console.error('An application error has occurred:');
