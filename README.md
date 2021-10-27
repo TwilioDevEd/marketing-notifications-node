@@ -48,7 +48,13 @@ npm install
 
 This should install all of our project dependencies from npm into a local `node_modules` folder.
 
-## 2. Configuration
+## 2. Copy the sample configuration file and edit it to match your configuration
+
+   ```bash
+   cp .env.example .env
+   ```
+
+## 3. Configuration
 
 Next, open `config.js` at the root of the project and update it with values from your environment and your [Twilio account](https://www.twilio.com/console/voice/dashboard). You can either export these values as system environment variables (this is the default setup), or you can replace these values with hard-coded strings (be careful you don't commit them to git!).
 
@@ -62,7 +68,7 @@ You can download and run MongoDB yourself
 
 Our application will be looking for a fully qualified MongoDB connection string with a username and password embedded in it.
 
-## 3. Running the Project
+## 4. Running the Project
 
 To launch the application, you can use `node .` in the project's root directory. You might also consider using [nodemon](https://github.com/remy/nodemon) for this. It works just like the node command, but automatically restarts your application when you change any source code files.
 
@@ -71,7 +77,7 @@ npm install -g nodemon \
 nodemon .
 ```
 
-## 4. Exposing Webhooks to Twilio
+## 5. Exposing Webhooks to Twilio
 
 You will likely need to expose your local Node.js web application on the public Internet to work with Twilio. We recommend using [ngrok](https://ngrok.com/docs) to accomplish this. Use ngrok to expose a local port and get a publicly accessible URL you can use to accept incoming calls or texts to your Twilio numbers.
 
