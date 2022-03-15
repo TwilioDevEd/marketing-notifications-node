@@ -22,7 +22,7 @@ Go to your dashboard on [Twilio](https://www.twilio.com/console/phone-numbers/in
 
 On the phone number page, enter `https://<appname.com>/message` into the _Messaging_ Request URL field.
 
-![Request URL](https://howtodocs.s3.amazonaws.com/setup-twilio-number.png)
+[Learn how to configure a Twilio phone number for Programmable SMS](https://support.twilio.com/hc/en-us/articles/223136047-Configure-a-Twilio-Phone-Number-to-Receive-and-Respond-to-Messages)
 
 ## 3. Wrap Up!
 
